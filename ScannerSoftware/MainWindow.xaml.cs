@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.IO;
 using WIA;
 
 namespace ScannerSoftware
@@ -21,26 +22,42 @@ namespace ScannerSoftware
     /// </summary>
     public partial class MainWindow : Window
     {
-        DeviceManager device;
+        DeviceManager deviceManager;
+        DeviceInfo deviceInfo = null;
         public MainWindow()
         {
             InitializeComponent();
-            device = new DeviceManager();
+            deviceManager = new DeviceManager();
         }
 
         private void GetScannerBtnClick(object sender, RoutedEventArgs e)
         {
-            for (int i = 1; i <= device.DeviceInfos.Count; i++)
+            //Based off of this guide:
+            //https://ourcodeworld.com/articles/read/382/creating-a-scanning-application-in-winforms-with-csharp
+            for (int i = 1; i <= deviceManager.DeviceInfos.Count; i++)
             {
-                if (device.DeviceInfos[i].Type != WiaDeviceType.ScannerDeviceType)
+                if (deviceManager.DeviceInfos[i].Type != WiaDeviceType.ScannerDeviceType)
                     continue;
-                ScannerNameLbl.Content = device.DeviceInfos[i].Properties["Name"].get_Value();
+                ScannerNameLbl.Content = deviceManager.DeviceInfos[i].Properties["Name"].get_Value();
             }
         }
 
         private void ScanBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            for (int i = 1; i <= deviceManager.DeviceInfos.Count; i++)
+            {
+                if (deviceManager.DeviceInfos[i].Type != WiaDeviceType.ScannerDeviceType)
+                    continue;
+                deviceInfo = deviceManager.DeviceInfos[i];
+                break;
+            }
+            var device = deviceInfo.Connect();
+            var scannerItem = device.Items[1];
+            var imageFile = (ImageFile)scannerItem.Transfer(FormatID.wiaFormatJPEG);
+            var path = @"I:\scan.jpg";
+            if (File.Exists(path))
+                File.Delete(path);
+            imageFile.SaveFile(path);
         }
     }
 }
