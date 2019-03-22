@@ -9,7 +9,15 @@
     <Grid Margin="0,0,2,-6">
         <Button Content="Get Scanner Name" HorizontalAlignment="Left" Margin="27,0,0,34" Width="119" Height="20" VerticalAlignment="Bottom" Name="GetScannerNameBtn" Click="GetScannerBtnClick"/>
         <Button Content="Scan" HorizontalAlignment="Left" Margin="184,0,0,34" Width="75" Name="ScanBtn" Click="ScanBtn_Click" Height="20" VerticalAlignment="Bottom"/>
-        <Label Content="" HorizontalAlignment="Left" Margin="76,103,0,0" VerticalAlignment="Top" Width="222" Name="ScannerNameLbl"/>
+        <Label Content="" HorizontalAlignment="Left" Margin="312,0,0,34" VerticalAlignment="Bottom" Width="222" Name="ScannerNameLbl"/>
+        <ListView Margin="27,22,27,92">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Scanner Name" Width="200"/>
+                    <GridViewColumn Header="Connection" Width="100"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
 
     </Grid>
 </Window>

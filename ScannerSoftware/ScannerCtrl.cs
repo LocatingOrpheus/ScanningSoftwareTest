@@ -65,9 +65,27 @@ namespace ScannerSoftware
             {
                 throw new COMException("Failed to access the scanner with error code " + e);
             }
-            
-            
-            
+        }
+        public List<ScannerProperties> GetAllScanners()
+        {
+            List<ScannerProperties> vs = new List<ScannerProperties>();
+            try
+            {
+                for (int i = 1; i <= deviceManager.DeviceInfos.Count; i++)
+                {
+                    if (deviceManager.DeviceInfos[i].Type != WiaDeviceType.ScannerDeviceType)
+                        continue;
+                    ScannerProperties scanner = new ScannerProperties();
+                    scanner.ScannerName = (string)deviceManager.DeviceInfos[i].Properties["Name"].get_Value();
+                    scanner.ScannerConn = deviceManager.DeviceInfos[i].Properties.ToString();
+                    vs.Add(scanner);
+                }
+            }
+            catch
+            {
+
+            }
+            return vs;
         }
     }
 }
