@@ -6,9 +6,9 @@
         xmlns:local="clr-namespace:ScannerSoftware"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
+    <Grid Margin="0,0,2,-6">
         <Button Content="Get Scanner Name" HorizontalAlignment="Left" Margin="27,0,0,34" Width="119" Height="20" VerticalAlignment="Bottom" Name="GetScannerNameBtn" Click="GetScannerBtnClick"/>
-        <Button Content="Scan" HorizontalAlignment="Left" Margin="184,365,0,0" VerticalAlignment="Top" Width="75" Name="ScanBtn" Click="ScanBtn_Click"/>
+        <Button Content="Scan" HorizontalAlignment="Left" Margin="184,0,0,34" Width="75" Name="ScanBtn" Click="ScanBtn_Click" Height="20" VerticalAlignment="Bottom"/>
         <Label Content="" HorizontalAlignment="Left" Margin="76,103,0,0" VerticalAlignment="Top" Width="222" Name="ScannerNameLbl"/>
 
     </Grid>
